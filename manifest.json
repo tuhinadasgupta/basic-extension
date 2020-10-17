@@ -7,6 +7,9 @@
     "default_icon": "pachira.png",
     "scripts": ["background.js"]
   },
+  "permissions": [
+    "http://pachira.eba-dsv6itc5.us-west-2.elasticbeanstalk.com/"
+  ],
   "manifest_version": 2,
   "commands": {
     "_execute_browser_action": {
