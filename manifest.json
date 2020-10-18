@@ -8,7 +8,9 @@
     "scripts": ["background.js"]
   },
   "permissions": [
-    "http://pachira.eba-dsv6itc5.us-west-2.elasticbeanstalk.com/"
+    "http://pachira.eba-dsv6itc5.us-west-2.elasticbeanstalk.com/",
+    "https://www.google.com/*",
+    "http://www.google.com/*"
   ],
   "manifest_version": 2,
   "commands": {

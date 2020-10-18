@@ -4,16 +4,19 @@ function myFunction(){
   console.log('HELLO');
 }
 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "http://pachira.eba-dsv6itc5.us-west-2.elasticbeanstalk.com/", true);
-xhr.send("10");
+document.getElementById("comm-btn").addEventListener("click", sendRequest);
 
-xhr.onreadystatechange = processRequest;
-
-function processRequest(e) {
-  if (xhr.readyState == 4) {
-      var response = JSON.parse(xhr.responseText);
-      console.log(response)
-  }
-  console.log('Hi')
-}
+function sendRequest() {
+  console.log("Sending request");
+  var req = new XMLHttpRequest();
+    req.open("GET", "http://www.google.com/search?hl=en&q=ajax", true);
+    req.onreadystatechange = function() {
+        if (req.readyState == 4) {
+          if (req.status == 200) {
+            alert(req.responseText);
+            document.write("OK");
+          }
+        }
+      };
+    req.send();
+} 
