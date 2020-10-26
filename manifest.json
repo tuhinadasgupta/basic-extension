@@ -4,13 +4,15 @@
   "version": "1.0",
   "browser_action": {
     "default_popup": "hello.html",
-    "default_icon": "pachira.png",
+    "default_icon": "icon-chrome.png",
     "scripts": ["background.js"]
   },
   "permissions": [
-    "http://pachira.eba-dsv6itc5.us-west-2.elasticbeanstalk.com/",
+    "http://pachira-app.eba-tkaiqvp7.us-west-2.elasticbeanstalk.com/",
     "https://www.google.com/*",
-    "http://www.google.com/*"
+    "http://www.google.com/*",
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/"
   ],
   "manifest_version": 2,
   "commands": {
