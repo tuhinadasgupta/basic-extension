@@ -5,7 +5,7 @@ function myFunction(){
 }
 
 document.getElementById("comm-btn").addEventListener("click", receiveRequest);
-
+// local django server communication
 function sendRequest() {
   console.log("Sending request");
   var req = new XMLHttpRequest();
@@ -28,7 +28,7 @@ function receiveRequest(){
   req.open("POST", "http://127.0.0.1:8000/snippets/", true);
   req.setRequestHeader("Content-type", "application/json");
   var json = {
-    code : "print(999)"
+    code : "print(787)"
   };
 
   req.onreadystatechange = function() { // Call a function when the state changes.
@@ -40,3 +40,31 @@ function receiveRequest(){
   var data = JSON.stringify(json);
   req.send(data);
 }
+
+
+document.getElementById("text-btn").addEventListener("click", textFunction);
+function textFunction(){
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    if (request.action == "getSource") {
+      message.innerText = request.source;
+      alert(request.source);
+    }
+  });
+  onWindowLoad();
+}
+
+function onWindowLoad() {
+  
+  var message = document.querySelector('#message');
+  chrome.tabs.executeScript(null, {
+    file: "getPagesSource.js"
+  }, function() {
+    // if message passing isn't set up, you get a runtime error
+    if (chrome.runtime.lastError) {
+      alert('There was an error injecting script : \n' + chrome.runtime.lastError.message);
+    }
+  });
+
+}
+
+window.onload = onWindowLoad;
