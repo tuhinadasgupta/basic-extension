@@ -21,8 +21,15 @@ function DOMtoString(document_root) {
           break;
       }
       node = node.nextSibling;
-  }
-  return html;
+ }
+  var form = parseHTML(html);
+  return form;
+}
+function parseHTML(html) {
+    console.log("GET PG SOURCE: ");
+    console.log(html);
+    var form = document.getElementById("activeCartViewForm");
+    return form.innerText;
 }
 
 chrome.runtime.sendMessage({
