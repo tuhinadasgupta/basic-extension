@@ -26,10 +26,17 @@ function DOMtoString(document_root) {
   return form;
 }
 function parseHTML(html) {
-    console.log("GET PG SOURCE: ");
-    console.log(html);
-    var form = document.getElementById("activeCartViewForm");
-    return form.innerText;
+    var items = document.getElementById("activeCartViewForm").querySelector(`div[data-name="Active Items"]`).querySelectorAll(`div[data-asin]`) ;
+    var arrItems = Array.prototype.slice.apply(items);
+    var jsonArr = [];
+    for (var i = 0; i < arrItems.length; i++) {
+        var textName = arrItems[i].getElementsByClassName("a-size-medium sc-product-title a-text-bold")[0].innerText;
+        jsonArr.push({
+            name: textName,
+            price: arrItems[i].dataset.price
+        });
+    }
+    return jsonArr;
 }
 
 chrome.runtime.sendMessage({

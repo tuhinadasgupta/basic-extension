@@ -46,8 +46,7 @@ document.getElementById("text-btn").addEventListener("click", textFunction);
 function textFunction(){
   chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getSource") {
-      message.innerText = request.source;
-      alert(request.source);
+      message.innerText = JSON.stringify(request.source);
     }
   });
   onWindowLoad();
