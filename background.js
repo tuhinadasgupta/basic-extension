@@ -1,3 +1,4 @@
+var msgPassedJson;
 document.getElementById("alt-btn").addEventListener("click", myFunction);
 
 function myFunction(){
@@ -27,9 +28,7 @@ function receiveRequest(){
 
   req.open("POST", "http://127.0.0.1:8000/snippets/", true);
   req.setRequestHeader("Content-type", "application/json");
-  var json = {
-    code : "print(demo)"
-  };
+  var json = msgPassedJson;
 
   req.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -37,8 +36,7 @@ function receiveRequest(){
     }
   }
 
-  var data = JSON.stringify(json);
-  req.send(data);
+  req.send(JSON.stringify(json));
 }
 
 
@@ -46,7 +44,8 @@ document.getElementById("text-btn").addEventListener("click", textFunction);
 function textFunction(){
   chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getSource") {
-      message.innerText = JSON.stringify(request.source);
+      msgPassedJson = request.source;
+      alert(JSON.stringify(request.source));
     }
   });
   onWindowLoad();
