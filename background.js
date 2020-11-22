@@ -26,7 +26,7 @@ function receiveRequest(){
   console.log("Posting request");
   var req = new XMLHttpRequest();
 
-  req.open("POST", "http://127.0.0.1:8000/snippets/", true);
+  req.open("POST", "http://0.0.0.0:8000/snippets/", true);
   req.setRequestHeader("Content-type", "application/json");
   var json = msgPassedJson;
 
