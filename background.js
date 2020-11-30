@@ -26,7 +26,7 @@ function receiveRequest(){
   console.log("Posting request");
   var req = new XMLHttpRequest();
 
-  req.open("POST", "http://0.0.0.0:8000/snippets/", true);
+  req.open("POST", "http://tutorial-env-test.eba-r5tcijm5.us-west-2.elasticbeanstalk.com/snippets/", true);
   req.setRequestHeader("Content-type", "application/json");
   var json = msgPassedJson;
 

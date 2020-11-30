@@ -26,7 +26,7 @@ function DOMtoString(document_root) {
   return form;
 }
 function parseHTML(html) {
-    var items = document.getElementById("activeCartViewForm").querySelector(`div[data-name="Active Items"]`).querySelectorAll(`div[data-asin]`) ;
+    var items = document.getElementById("activeCartViewForm").querySelector(`div[data-name="Active Items"]`).querySelectorAll(`div[data-asin]`&& `div[data-quantity]`) ;
     var arrItems = Array.prototype.slice.apply(items);
     var jsonArr = [];
     for (var i = 0; i < arrItems.length; i++) {
