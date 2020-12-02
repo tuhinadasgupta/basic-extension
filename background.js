@@ -5,7 +5,7 @@ function myFunction(){
   console.log('HELLO');
 }
 
-document.getElementById("comm-btn").addEventListener("click", receiveRequest);
+//document.getElementById("comm-btn").addEventListener("click", receiveRequest);
 // local django server communication
 function sendRequest() {
   console.log("Sending request");
@@ -40,7 +40,7 @@ function receiveRequest(){
 }
 
 
-document.getElementById("text-btn").addEventListener("click", textFunction);
+//document.getElementById("text-btn").addEventListener("click", textFunction);
 function textFunction(){
   chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getSource") {
@@ -53,7 +53,6 @@ function textFunction(){
 
 function onWindowLoad() {
   
-  var message = document.querySelector('#message');
   chrome.tabs.executeScript(null, {
     file: "getPagesSource.js"
   }, function() {
