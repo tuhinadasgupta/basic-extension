@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title> Pachira </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  </head>
-  <style>
-    body{
-      width: 150px;
-      overflow-y: scroll;
-    }
-    li{
-      padding-top: 10px;
-      padding-left: 0px;
-    }
-    h2{
-      text-align: center;
-    }
-    .header{
-      text-align: center;
-    }
-    .navbar {
+
+<head>
+  <title> Pachira </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+  body {
+    width: 150px;
+    overflow-y: scroll;
+  }
+
+  li {
+    padding-top: 10px;
+    padding-left: 0px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .header {
+    text-align: center;
+  }
+
+  .navbar {
     overflow: hidden;
     background-color: white;
     bottom: 0;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    }
+  }
 
   .navbar a {
     float: left;
@@ -40,37 +45,40 @@
     color: black;
   }
 
-  .navbar a.active {
-    background-color: #4CAF50;
-    color: white;
-  }
-
-  .main-content{
+  .main-content {
     overflow-y: scroll;
   }
 
   #alt-btn {
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  background-color: white;
-  color: black;
-  border: 2px solid #e7e7e7;
-  border-radius: 12px;
-  width: 100%;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+    border-radius: 12px;
+    width: 100%;
   }
 
-  #alt-btn:hover {background-color: #e7e7e7;}
+  #alt-btn:hover {
+    background-color: #e7e7e7;
+  }
 
   .wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-  </style>
-  <body>
-    <div class="wrapper">
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #home {
+    text-decoration: underline;
+    text-decoration-color: rgb(253, 128, 128);
+  }
+</style>
+
+<body>
+  <div class="wrapper">
     <div class="header">
       <img src="chrome-extension.png"></img>
     </div>
@@ -82,10 +90,11 @@
       <script src="background.js"></script>
     </div>
     <div class="navbar">
-      <a href="#home"><i class="fa fa-home" href="#home"></i></a>
-      <a href="#news"><i class="fa fa-gift"href="#alternatives"></i> </a>
-      <a href="#contact"><i class="fa fa-user-circle-o"href="#user"></i> </a>
+      <a href="hello.html"><i id="home" class="fa fa-home" href="hello.html"></i></a>
+      <a href="alt.html"><i class="fa fa-gift" href="alt.html"></i> </a>
+      <a href="account.html"><i class="fa fa-user" href="account.html"></i> </a>
     </div>
   </div>
-  </body>
+</body>
+
 </html>

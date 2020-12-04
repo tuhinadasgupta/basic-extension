@@ -45,7 +45,7 @@ function textFunction(){
   chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getSource") {
       msgPassedJson = request.source;
-      alert(JSON.stringify(request.source));
+      //alert(JSON.stringify(request.source));
     }
   });
   onWindowLoad();
@@ -64,4 +64,4 @@ function onWindowLoad() {
 
 }
 
-window.onload = onWindowLoad;
+//window.onload = onWindowLoad;
