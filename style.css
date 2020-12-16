@@ -53,7 +53,7 @@ a {
 }
 
 #alt-btns {
-  padding: 16px 32px;
+  padding: 12px 24px;
   text-align: center;
   text-decoration: none;
   transition: all 0.5s;
@@ -68,7 +68,11 @@ a {
 #alt-btns:hover {
   background-color: #e7e7e7;
 }
-
+/* can have longer store names due to this */
+h4 button span{
+  display: inline-block;
+  width: 75px;
+}
 #alt-btns span:after {
   content: "\00bb";
   opacity: 0;
@@ -77,7 +81,7 @@ a {
 }
 
 #alt-btns:hover span {
-  padding-right: 25px;
+  padding-right: 5px;
 }
 
 #alt-btns:hover span:after {
@@ -110,6 +114,7 @@ a {
   border: 2px solid #e7e7e7;
   border-radius: 12px;
   width: 100%;
+  outline-color:white;
 }
 
 #alt-btn:hover {
@@ -168,10 +173,6 @@ a {
   border:none;
   background-color: white;
   cursor: pointer;
-}
-
-.close-top,
-.back-top :focus{
   outline-color:white;
 }
 
