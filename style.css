@@ -51,9 +51,8 @@ a {
   background: #f1f1f1;
   color: black;
 }
-
-#alt-btns {
-  padding: 12px 24px;
+/* style for alt page button list */
+.alt-btns {
   text-align: center;
   text-decoration: none;
   transition: all 0.5s;
@@ -62,10 +61,13 @@ a {
   color: black;
   border: 2px solid #e7e7e7;
   border-radius: 12px;
-  width: 100%;
+  width: 100px;
+  display: inline-block;
+  padding: 12px;
+  margin-left: 10px;
 }
 
-#alt-btns:hover {
+.alt-btns:hover {
   background-color: #e7e7e7;
 }
 /* can have longer store names due to this */
@@ -73,18 +75,18 @@ h4 button span{
   display: inline-block;
   width: 75px;
 }
-#alt-btns span:after {
+.alt-btns span:after {
   content: "\00bb";
   opacity: 0;
   top: 0;
   transition: 0.5s;
 }
 
-#alt-btns:hover span {
+.alt-btns:hover span {
   padding-right: 5px;
 }
 
-#alt-btns:hover span:after {
+.alt-btns:hover span:after {
   opacity: 1;
   right: 0;
 }
@@ -102,7 +104,7 @@ h4 button span{
 .curr-pg {
   color: rgb(253, 128, 128);
 }
-
+/* style for home page single button */
 #alt-btn {
   padding: 16px 32px;
   text-align: center;
@@ -169,7 +171,7 @@ h4 button span{
 
 .close-top,
 .back-top {
-  height: 50%;
+  height: 15%;
   border:none;
   background-color: white;
   cursor: pointer;
@@ -187,4 +189,23 @@ h4 button span{
 
 .pad-account{
   padding-right: 10px;
+}
+
+/* #first{
+  display:none;
+} */
+
+#second{
+  /* display:none; */
+  text-align:center
+}
+
+.user-avatar{
+  border-radius: 50%;
+  height:75px;
+  width:75px;
+}
+
+#user-name, #sust-tier{
+  margin:0px;
 }

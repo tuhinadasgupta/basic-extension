@@ -14,6 +14,7 @@
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: rgba(0, 0, 0, .5);
+  box-shadow:0 0 1px rgba(255, 255, 255, .5);
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 </style>
@@ -27,16 +28,17 @@
         </div>
         <div class="main-content">
             <h2>Alternatives</h2>
-            <div class="list-alt">
+            <div class="list-alt"id="list-alt">
                 <div class="alt-option">
-                    <h4><button id="alt-btns"><span>Target </span></button></h4>
+                    <h4><a href="altDetails.html" class="alt-btns" id="btn1"><span>Target </span></a></h4>
                 </div>
                 <div class="alt-option">
-                    <h4><button id="alt-btns"><span>Walmart </span></button></h4>
+                    <h4><a href="altDetails.html" class="alt-btns" id="btn2"><span>Walmart </span></a></h4>
                 </div>
                 <div class="alt-option">
-                    <h4><button id="alt-btns"><span>Thrift </span></button></h4>
+                    <h4><a href="altDetails.html" class="alt-btns" id="btn3"><span>Thrift </span></a></h4>
                 </div>
+                <script src="alternatives.js"></script>
             </div>
         </div>
         <div class="navbar">
