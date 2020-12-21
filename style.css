@@ -11,7 +11,8 @@ li {
 h2,
 .header,
 h3,
-p {
+p,
+#second {
   text-align: center;
 }
 
@@ -129,27 +130,6 @@ h4 button span{
   grid-template-columns: 1fr;
 }
 
-.google {
-  padding: 12px;
-  border: none;
-  line-height: 14px;
-  border-radius: 4px;
-  margin: 5px 0;
-  opacity: 0.85;
-  display: inline-block;
-  font-size: 14px;
-  text-decoration: none;
-  background-color: rgb(253, 128, 128);
-  color: white;
-  width: 125px;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.google:hover {
-  opacity: 1;
-}
-
 .web-app{
   padding: 12px;
   border: none;
@@ -162,7 +142,7 @@ h4 button span{
   text-decoration: none;
   background-color: rgb(254, 231, 118);
   color: white;
-  width: 125px;
+  width: 120px;
   text-align: center;
 }
 .web-app:hover {
@@ -180,6 +160,7 @@ h4 button span{
 
 .margin {
   margin-left: -3px; /*sketchy*/
+  font-size: 16px;
 }
 
 .main-content{
@@ -191,15 +172,6 @@ h4 button span{
   padding-right: 10px;
 }
 
-/* #first{
-  display:none;
-} */
-
-#second{
-  /* display:none; */
-  text-align:center
-}
-
 .user-avatar{
   border-radius: 50%;
   height:75px;
@@ -208,4 +180,26 @@ h4 button span{
 
 #user-name, #sust-tier{
   margin:0px;
+}
+
+.error-banner{
+  padding: 4px;
+  border: none;
+  line-height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 14px;
+  text-decoration: none;
+  background-color: rgb(253, 128, 128);
+  color: white;
+  width: 130px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding-left: 10px;
+}
+
+#first{
+  height: 90px;
+  overflow:hidden;
 }
