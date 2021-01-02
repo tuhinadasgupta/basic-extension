@@ -1,9 +1,7 @@
 window.onload = loading;
 function loading(){
-  if(!localStorage.getItem('login')) {
-    localStorage.setItem('login', 'false'); // user is not logged in
-  }
-  console.log("added");
+  window.localStorage.removeItem('login');
+  window.localStorage.setItem('login', 'true');
 }
 var msgPassedJson;
 document.getElementById("alt-btn").addEventListener("click", myFunction);
