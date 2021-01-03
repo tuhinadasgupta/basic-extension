@@ -10,15 +10,19 @@ function closeWindow() {
 
 window.onload = onWindowLoading;
 function onWindowLoading(){
-  var stored = localStorage.getItem('login');
-  if(stored.localeCompare('true')==0){
+  var stored = "";
+  chrome.storage.sync.get('login', function (result) {
+    stored = result.login;
+    console.log(stored);
+    if(stored.localeCompare('true')==0){
       //user is logged in
       document.getElementById('first').style.display = 'none';
-  }
-  else{
+    }
+    else{
       //user not logged in 
       document.getElementById('second').style.display = 'none';
-  }
+    }
+  });
   getLocation();
 }
 

@@ -7,7 +7,7 @@
     "default_icon": "icon-chrome.png"
   },
   "permissions": [
-    "http://pachira-app.eba-tkaiqvp7.us-west-2.elasticbeanstalk.com/",
+    "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/*",
     "https://www.google.com/*",
     "http://www.google.com/*",
     "http://127.0.0.1:8000/*",
@@ -17,7 +17,8 @@
     "activeTab",
     "https://www.amazon.com/*",
     "http://www.amazon.com/*",
-    "geolocation"
+    "geolocation",
+    "storage"
   ],
   "manifest_version": 2,
   "commands": {

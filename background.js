@@ -1,16 +1,32 @@
 window.onload = loading;
+
 function loading(){
-  window.localStorage.removeItem('login');
-  window.localStorage.setItem('login', 'true');
-}
-var msgPassedJson;
-document.getElementById("alt-btn").addEventListener("click", myFunction);
-
-function myFunction(){
-  console.log('HELLO');
+  chrome.storage.sync.clear();
+  chrome.storage.sync.set({'login' : 'true'}, function(){});
 }
 
-//document.getElementById("comm-btn").addEventListener("click", receiveRequest);
+document.getElementById("alt-btn").addEventListener("click", textFunction);
+
+function textFunction(){
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    if (request.action == "getSource") {
+      receiveRequest(request.source);
+    }
+  });
+  onWindowLoad();
+}
+
+function onWindowLoad() {
+  chrome.tabs.executeScript(null, {
+    file: "getPagesSource.js"
+  }, function() {
+    // if message passing isn't set up, you get a runtime error
+    if (chrome.runtime.lastError) {
+      alert('There was an error injecting script : \n' + chrome.runtime.lastError.message);
+    }
+  });
+}
+
 // local django server communication
 function sendRequest() {
   console.log("Sending request");
@@ -27,45 +43,16 @@ function sendRequest() {
     req.send();
 } 
 
-function receiveRequest(){
+function receiveRequest(msgPassedJson){
   console.log("Posting request");
   var req = new XMLHttpRequest();
 
-  req.open("POST", "http://tutorial-env-test.eba-r5tcijm5.us-west-2.elasticbeanstalk.com/snippets/", true);
+  req.open("POST", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/snippets/", true);
   req.setRequestHeader("Content-type", "application/json");
-  var json = msgPassedJson;
-
   req.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         console.log("Got response 200!");
     }
   }
-
-  req.send(JSON.stringify(json));
+  req.send(JSON.stringify(msgPassedJson));
 }
-
-
-//document.getElementById("text-btn").addEventListener("click", textFunction);
-function textFunction(){
-  chrome.runtime.onMessage.addListener(function(request, sender) {
-    if (request.action == "getSource") {
-      msgPassedJson = request.source;
-      //alert(JSON.stringify(request.source));
-    }
-  });
-  onWindowLoad();
-}
-
-function onWindowLoad() {
-  chrome.tabs.executeScript(null, {
-    file: "getPagesSource.js"
-  }, function() {
-    // if message passing isn't set up, you get a runtime error
-    if (chrome.runtime.lastError) {
-      alert('There was an error injecting script : \n' + chrome.runtime.lastError.message);
-    }
-  });
-
-}
-
-//window.onload = onWindowLoad;
