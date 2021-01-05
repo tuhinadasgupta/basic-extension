@@ -29,8 +29,8 @@ a {
   bottom: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-  height:50px;
-  width:150px;
+  height: 50px;
+  width: 150px;
 }
 .header {
   overflow: hidden;
@@ -62,7 +62,7 @@ a {
   color: black;
   border: 2px solid #e7e7e7;
   border-radius: 12px;
-  width: 100px;
+  width: 125px;
   display: inline-block;
   padding: 12px;
   margin-left: 10px;
@@ -72,9 +72,9 @@ a {
   background-color: #e7e7e7;
 }
 /* can have longer store names due to this */
-h4 button span{
+h4 button span {
   display: inline-block;
-  width: 75px;
+  width: 100px;
 }
 .alt-btns span:after {
   content: "\00bb";
@@ -117,7 +117,7 @@ h4 button span{
   border: 2px solid #e7e7e7;
   border-radius: 12px;
   width: 100%;
-  outline-color:white;
+  outline-color: white;
 }
 
 #alt-btn:hover {
@@ -130,7 +130,7 @@ h4 button span{
   grid-template-columns: 1fr;
 }
 
-.web-app{
+.web-app {
   padding: 12px;
   border: none;
   line-height: 14px;
@@ -152,10 +152,10 @@ h4 button span{
 .close-top,
 .back-top {
   height: 15%;
-  border:none;
+  border: none;
   background-color: white;
   cursor: pointer;
-  outline-color:white;
+  outline-color: white;
 }
 
 .margin {
@@ -163,26 +163,27 @@ h4 button span{
   font-size: 16px;
 }
 
-.main-content{
-  height:105px;
+.main-content {
+  height: 105px;
   overflow-y: scroll;
 }
 
-.pad-account{
+.pad-account {
   padding-right: 10px;
 }
 
-.user-avatar{
+.user-avatar {
   border-radius: 50%;
-  height:75px;
-  width:75px;
+  height: 75px;
+  width: 75px;
 }
 
-#user-name, #sust-tier{
-  margin:0px;
+#user-name,
+#sust-tier {
+  margin: 0px;
 }
 
-.error-banner{
+.error-banner {
   padding: 4px;
   border: none;
   line-height: 14px;
@@ -199,7 +200,11 @@ h4 button span{
   padding-left: 10px;
 }
 
-#first{
+#first {
   height: 90px;
-  overflow:hidden;
+  overflow: hidden;
+}
+
+.alt-option {
+  margin-bottom: 5px;
 }

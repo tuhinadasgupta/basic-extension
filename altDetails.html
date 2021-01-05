@@ -13,12 +13,19 @@
       <button id="back-btn" class="back-top"><i class="fa fa-arrow-left margin"></i></button>
       <img src="chrome-extension.png"></img>
       <button id="close-btn" class="close-top"><i class="fa fa-window-close margin"></i></button>
-      <script src="general.js"></script>
-  </div>
-    <div class="main-content">
+    </div>
+    <div class="main-content" id="first">
+      <a class="error-banner"><i class="fa fa-exclamation-triangle pad-account">
+        </i>Login Required
+      </a>
+      <br>
+      <a href="#" class="web-app"><i class="fa fa-external-link pad-account">
+        </i>Web App
+      </a>
+    </div>
+    <div class="main-content" id="second">
       <p>DETAILS PG</p>
-      <div id="write-to">txt</div>
-      <script src="alternatives.js"></script>
+      <p id="write-to">txt</p>
     </div>
     <div class="navbar">
       <a href="hello.html"><i class="fa fa-home" href="hello.html"></i></a>
@@ -26,6 +33,8 @@
       <a href="account.html"><i class="fa fa-user" href="account.html"></i> </a>
     </div>
   </div>
+  <script src="altdisplay.js"></script>
+  <script src="general.js"></script>
 </body>
 
 </html>
