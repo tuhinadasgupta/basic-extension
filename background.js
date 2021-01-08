@@ -27,20 +27,23 @@ function onWindowLoad() {
   });
 }
 
+document.getElementById("loginSubmit").addEventListener("click", sendRequest);
+
 // local django server communication
 function sendRequest() {
   console.log("Sending request");
   var req = new XMLHttpRequest();
-    req.open("GET", "http://localhost:8000", true);
-    req.onreadystatechange = function() {
-        if (req.readyState == 4) {
-          if (req.status == 200) {
-            alert(req.responseText);
-            document.write("OK");
-          }
-        }
-      };
-    req.send();
+  req.open("GET", "http://127.0.0.1:8000/catalog/login/", true);
+  req.responseType = 'json';
+  req.onreadystatechange = function() {
+    if (req.readyState == 4) {
+      if (req.status == 200) {
+        alert(JSON.stringify(req.response));
+        document.write("OK");
+      }
+    }
+  };
+  req.send();
 } 
 
 function receiveRequest(msgPassedJson){
@@ -56,3 +59,41 @@ function receiveRequest(msgPassedJson){
   }
   req.send(JSON.stringify(msgPassedJson));
 }
+
+// document.addEventListener('DOMContentLoaded', loginEvents, false);
+
+// function myAction(femail,fpassword) {
+//     //alert("femail=" + femail.value + "fpassword=" +fpassword.value);
+//     var strLogin = "email=" + femail.value + "&password=" + fpassword.value;
+//     if (femail.value == ""){
+//         alert("Username must be filled out");
+//         return false;
+//     }
+//     if (fpassword.value == ""){
+//         alert("Password must be filled out");
+//         return false;
+//     }
+//     var newxmlhttp = new XMLHttpRequest();
+//     var theUrl = "http://127.0.0.1:8000/catalog/login/";
+//     newxmlhttp.open("POST", theUrl, true);
+
+//     newxmlhttp.onreadystatechange = function() {
+//       if (newxmlhttp.readyState == 4){
+//           // Alert response
+//           alert(newxmlhttp.responseText);
+//       }
+//     };
+
+//     newxmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+//     newxmlhttp.send(strLogin);
+// }
+// function loginEvents() {
+//     console.log("entered console");
+//     var loginSubmitButton = document.getElementById('loginSubmit')
+//     loginSubmitButton.addEventListener('click', 
+//     function(event) {
+//         var userEmail = document.getElementById('email');
+//         var userPassword = document.getElementById('password');
+//         myAction(userEmail,userPassword);
+//     });
+// }
