@@ -212,3 +212,17 @@ h4 button span {
 #location-marker{
   margin-right: 5px;
 }
+
+.yelp-subheader{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-column-gap: 5px;
+}
+
+.yelp-subheader > p{
+  margin-bottom: 0px;
+}
+
+#write-to{
+  margin-bottom:0px;
+}
