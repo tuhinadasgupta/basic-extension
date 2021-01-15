@@ -1,9 +1,30 @@
 window.onload = loading;
-
+ 
 function loading(){
   chrome.storage.sync.clear();
   chrome.storage.sync.set({'login' : 'true'}, function(){});
+  // user location
+  if (navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(sendLocation);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
 }
+
+function sendLocation(position){
+  var coords = {lat: position.coords.latitude, lng: position.coords.longitude};
+  var req = new XMLHttpRequest();
+  // what is the correct endpoint ? 
+  //req.open("POST", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/snippets/", true);
+  req.setRequestHeader("Content-type", "application/json");
+  req.onreadystatechange = function() { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        console.log("Got response 200!");
+    }
+  }
+  req.send(JSON.stringify(coords));
+}
+
 
 document.getElementById("alt-btn").addEventListener("click", textFunction);
 
@@ -29,7 +50,7 @@ function onWindowLoad() {
 
 document.getElementById("loginSubmit").addEventListener("click", sendRequest);
 
-// local django server communication
+// django server communication
 function sendRequest() {
   console.log("Sending request");
   var req = new XMLHttpRequest();
@@ -46,7 +67,7 @@ function sendRequest() {
   req.send();
 } 
 
-function receiveRequest(msgPassedJson){
+function receiveRequest(completeJSON){
   console.log("Posting request");
   var req = new XMLHttpRequest();
 
@@ -59,41 +80,3 @@ function receiveRequest(msgPassedJson){
   }
   req.send(JSON.stringify(msgPassedJson));
 }
-
-// document.addEventListener('DOMContentLoaded', loginEvents, false);
-
-// function myAction(femail,fpassword) {
-//     //alert("femail=" + femail.value + "fpassword=" +fpassword.value);
-//     var strLogin = "email=" + femail.value + "&password=" + fpassword.value;
-//     if (femail.value == ""){
-//         alert("Username must be filled out");
-//         return false;
-//     }
-//     if (fpassword.value == ""){
-//         alert("Password must be filled out");
-//         return false;
-//     }
-//     var newxmlhttp = new XMLHttpRequest();
-//     var theUrl = "http://127.0.0.1:8000/catalog/login/";
-//     newxmlhttp.open("POST", theUrl, true);
-
-//     newxmlhttp.onreadystatechange = function() {
-//       if (newxmlhttp.readyState == 4){
-//           // Alert response
-//           alert(newxmlhttp.responseText);
-//       }
-//     };
-
-//     newxmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
-//     newxmlhttp.send(strLogin);
-// }
-// function loginEvents() {
-//     console.log("entered console");
-//     var loginSubmitButton = document.getElementById('loginSubmit')
-//     loginSubmitButton.addEventListener('click', 
-//     function(event) {
-//         var userEmail = document.getElementById('email');
-//         var userPassword = document.getElementById('password');
-//         myAction(userEmail,userPassword);
-//     });
-// }

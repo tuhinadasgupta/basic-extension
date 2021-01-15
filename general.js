@@ -23,18 +23,4 @@ function onWindowLoading(){
       document.getElementById('second').style.display = 'none';
     }
   });
-  getLocation();
-}
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    console.log("location not available");
-  }
-}
-
-function showPosition(position) {
-  console.log("Latitude: " + position.coords.latitude + 
-  " Longitude: " + position.coords.longitude);
 }
