@@ -8,7 +8,7 @@ function closeWindow() {
   window.close('','_parent','');
 }
 
-window.onload = onWindowLoading;
+window.addEventListener('load', onWindowLoading);
 function onWindowLoading(){
   var stored = "";
   chrome.storage.sync.get('login', function (result) {

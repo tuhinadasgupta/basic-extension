@@ -1,5 +1,4 @@
-window.onload = loading;
- 
+window.addEventListener('load', loading);
 function loading(){
   chrome.storage.sync.clear();
   chrome.storage.sync.set({'login' : 'true'}, function(){});
@@ -12,10 +11,10 @@ function loading(){
 }
 
 function sendLocation(position){
-  var coords = {lat: position.coords.latitude, lng: position.coords.longitude};
+  var coords = {lat: position.coords.latitude, lon: position.coords.longitude};
+  console.log(coords);
   var req = new XMLHttpRequest();
-  // what is the correct endpoint ? 
-  //req.open("POST", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/snippets/", true);
+  req.open("POST", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/nlp/", true);
   req.setRequestHeader("Content-type", "application/json");
   req.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
