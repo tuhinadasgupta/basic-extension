@@ -11,8 +11,9 @@ function loading(){
 }
 
 function sendLocation(position){
-  var coords = {lat: position.coords.latitude, lon: position.coords.longitude};
+  var coords = {"lat": position.coords.latitude, "lon": position.coords.longitude};
   console.log(coords);
+  console.log(JSON.stringify(coords));
   var req = new XMLHttpRequest();
   req.open("POST", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/nlp/", true);
   req.setRequestHeader("Content-type", "application/json");
