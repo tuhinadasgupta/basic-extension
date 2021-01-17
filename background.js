@@ -3,11 +3,11 @@ function loading(){
   chrome.storage.sync.clear();
   chrome.storage.sync.set({'login' : 'true'}, function(){});
   // user location
-  if (navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(sendLocation);
-  } else {
-    alert("Geolocation is not supported by this browser.");
-  }
+  // if (navigator.geolocation){
+  //   navigator.geolocation.getCurrentPosition(sendLocation);
+  // } else {
+  //   alert("Geolocation is not supported by this browser.");
+  // }
 }
 
 function sendLocation(position){
@@ -27,7 +27,7 @@ function sendLocation(position){
 
 
 document.getElementById("alt-btn").addEventListener("click", textFunction);
-
+// parsing shopping cart
 function textFunction(){
   chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getSource") {
@@ -36,7 +36,7 @@ function textFunction(){
   });
   onWindowLoad();
 }
-
+// content script - parsing shopping cart
 function onWindowLoad() {
   chrome.tabs.executeScript(null, {
     file: "getPagesSource.js"
@@ -48,7 +48,22 @@ function onWindowLoad() {
   });
 }
 
-document.getElementById("loginSubmit").addEventListener("click", sendRequest);
+document.getElementById("loginSubmit").addEventListener("click", loginStatus);
+function loginStatus() {
+  console.log("Sending request");
+  var req = new XMLHttpRequest();
+  req.open("GET", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/catalog/login/", true);
+  req.responseType = 'json';
+  req.onreadystatechange = function() {
+    if (req.readyState == 4) {
+      if (req.status == 200) {
+        alert(JSON.stringify(req.response));
+        document.write("OK");
+      }
+    }
+  };
+  req.send();
+}
 
 // django server communication
 function sendRequest() {
