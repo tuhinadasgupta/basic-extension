@@ -24,7 +24,11 @@ function sendLocation(position){
   }
   req.send(JSON.stringify(coords));
 }
-
+document.getElementById("score-btn").addEventListener("click", replaceFunction);
+function replaceFunction(){
+  document.getElementById('second').style.display = 'none';
+  document.getElementById('third').style.display = 'block';
+}
 
 document.getElementById("alt-btn").addEventListener("click", textFunction);
 // parsing shopping cart
