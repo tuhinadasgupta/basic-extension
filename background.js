@@ -70,6 +70,24 @@ function loginStatus() {
   req.send();
 }
 
+// get snippets
+document.getElementById("snippetSubmit").addEventListener("click", snippetSubmit);
+function snippetSubmit() {
+  console.log("Sending request");
+  var req = new XMLHttpRequest();
+  req.open("GET", "http://127.0.0.1:8000/snippets/", true);
+  req.responseType = 'json';
+  req.onreadystatechange = function() {
+    if (req.readyState == 4) {
+      if (req.status == 200) {
+        alert(JSON.stringify(req.response));
+        document.write("OK");
+      }
+    }
+  };
+  req.send();
+}
+
 // django server communication
 function sendRequest() {
   console.log("Sending request");
