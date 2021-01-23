@@ -9,7 +9,7 @@ function loading(){
   //   alert("Geolocation is not supported by this browser.");
   // }
 }
-
+// send location
 function sendLocation(position){
   var coords = {"lat": position.coords.latitude, "lon": position.coords.longitude};
   console.log(coords);
@@ -24,6 +24,7 @@ function sendLocation(position){
   }
   req.send(JSON.stringify(coords));
 }
+// html pg display
 document.getElementById("score-btn").addEventListener("click", replaceFunction);
 function replaceFunction(){
   document.getElementById('second').style.display = 'none';
@@ -35,7 +36,7 @@ document.getElementById("alt-btn").addEventListener("click", textFunction);
 function textFunction(){
   chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getSource") {
-      receiveRequest(request.source);
+      receiveRequest(request.source); // send to aws eb
     }
   });
   onWindowLoad();
@@ -51,12 +52,12 @@ function onWindowLoad() {
     }
   });
 }
-
+// get login status
 document.getElementById("loginSubmit").addEventListener("click", loginStatus);
 function loginStatus() {
   console.log("Sending request");
   var req = new XMLHttpRequest();
-  req.open("GET", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/catalog/login/", true);
+  req.open("GET", "http://127.0.0.1:8000/accounts/login/", true);
   req.responseType = 'json';
   req.onreadystatechange = function() {
     if (req.readyState == 4) {
@@ -92,10 +93,10 @@ function receiveRequest(completeJSON){
 
   req.open("POST", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/snippets/", true);
   req.setRequestHeader("Content-type", "application/json");
-  req.onreadystatechange = function() { // Call a function when the state changes.
+  req.onreadystatechange = function() { // Call a function when the state changes
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         console.log("Got response 200!");
     }
   }
-  req.send(JSON.stringify(msgPassedJson));
+  req.send(JSON.stringify(completeJSON));
 }
