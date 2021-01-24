@@ -29,9 +29,9 @@ document.getElementById("score-btn").addEventListener("click", replaceFunction);
 function replaceFunction(){
   document.getElementById('second').style.display = 'none';
   document.getElementById('third').style.display = 'block';
+  textFunction();
 }
 
-document.getElementById("alt-btn").addEventListener("click", textFunction);
 // parsing shopping cart
 function textFunction(){
   chrome.runtime.onMessage.addListener(function(request, sender) {
@@ -51,41 +51,6 @@ function onWindowLoad() {
       alert('There was an error injecting script : \n' + chrome.runtime.lastError.message);
     }
   });
-}
-// get login status
-document.getElementById("loginSubmit").addEventListener("click", loginStatus);
-function loginStatus() {
-  console.log("Sending request");
-  var req = new XMLHttpRequest();
-  req.open("GET", "http://127.0.0.1:8000/accounts/login/", true);
-  req.responseType = 'json';
-  req.onreadystatechange = function() {
-    if (req.readyState == 4) {
-      if (req.status == 200) {
-        alert(JSON.stringify(req.response));
-        document.write("OK");
-      }
-    }
-  };
-  req.send();
-}
-
-// get snippets
-document.getElementById("snippetSubmit").addEventListener("click", snippetSubmit);
-function snippetSubmit() {
-  console.log("Sending request");
-  var req = new XMLHttpRequest();
-  req.open("GET", "http://127.0.0.1:8000/snippets/", true);
-  req.responseType = 'json';
-  req.onreadystatechange = function() {
-    if (req.readyState == 4) {
-      if (req.status == 200) {
-        alert(JSON.stringify(req.response));
-        document.write("OK");
-      }
-    }
-  };
-  req.send();
 }
 
 // django server communication
@@ -109,7 +74,7 @@ function receiveRequest(completeJSON){
   console.log("Posting request");
   var req = new XMLHttpRequest();
 
-  req.open("POST", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/snippets/", true);
+  req.open("POST", "http://127.0.0.1:8000/snippets/", true);
   req.setRequestHeader("Content-type", "application/json");
   req.onreadystatechange = function() { // Call a function when the state changes
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
