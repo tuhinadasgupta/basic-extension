@@ -3,11 +3,11 @@ function loading(){
   chrome.storage.sync.clear();
   chrome.storage.sync.set({'login' : 'true'}, function(){});
   // user location
-  // if (navigator.geolocation){
-  //   navigator.geolocation.getCurrentPosition(sendLocation);
-  // } else {
-  //   alert("Geolocation is not supported by this browser.");
-  // }
+  if (navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(sendLocation);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
 }
 // send location
 function sendLocation(position){
@@ -15,7 +15,7 @@ function sendLocation(position){
   console.log(coords);
   console.log(JSON.stringify(coords));
   var req = new XMLHttpRequest();
-  req.open("POST", "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/nlp/", true);
+  req.open("POST", "http://127.0.0.1:8000/nlp/", true);
   req.setRequestHeader("Content-type", "application/json");
   req.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
