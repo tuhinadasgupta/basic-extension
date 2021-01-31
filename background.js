@@ -3,11 +3,11 @@ function loading(){
   chrome.storage.sync.clear();
   chrome.storage.sync.set({'login' : 'true'}, function(){});
   // user location
-  if (navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(sendLocation);
-  } else {
-    alert("Geolocation is not supported by this browser.");
-  }
+  // if (navigator.geolocation){
+  //   navigator.geolocation.getCurrentPosition(sendLocation);
+  // } else {
+  //   alert("Geolocation is not supported by this browser.");
+  //}
 }
 // send location
 function sendLocation(position){

@@ -140,7 +140,7 @@ h4 button span {
   display: inline-block;
   font-size: 14px;
   text-decoration: none;
-  background-color: rgb(254, 231, 118);
+  background-color: rgb(76, 53, 70);
   color: white;
   width: 120px;
   text-align: center;
@@ -223,7 +223,7 @@ h4 button span {
   margin-bottom: 0px;
 }
 
-#write-to{
+#company-name{
   margin-bottom:0px;
 }
 
