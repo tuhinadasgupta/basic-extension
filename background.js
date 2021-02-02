@@ -10,8 +10,6 @@ function loading(){
   var json3= {name: "Thrift", address: "124 Drive", price: 3, stars: 5, url: ""}
   localStorage.setItem("company3", JSON.stringify(json3));
 
-  console.log(localStorage.getItem("company1"));
-
   // user location
   // if (navigator.geolocation){
   //   navigator.geolocation.getCurrentPosition(sendLocation);

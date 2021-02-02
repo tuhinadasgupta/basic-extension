@@ -18,7 +18,8 @@
     "https://www.amazon.com/*",
     "http://www.amazon.com/*",
     "geolocation",
-    "storage"
+    "storage",
+    "identity"
   ],
   "manifest_version": 2,
   "commands": {

@@ -190,14 +190,14 @@ h4 button span {
   border-radius: 4px;
   display: inline-block;
   font-size: 14px;
-  text-decoration: none;
-  background-color: rgb(253, 128, 128);
-  color: white;
+  background-color: white;
+  color:  rgb(253, 128, 128);
   width: 130px;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 5px;
   padding-left: 10px;
+  font-weight: 700;
 }
 
 #first {
