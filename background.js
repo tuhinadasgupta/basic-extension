@@ -19,8 +19,10 @@ function loading(){
   // } else {
   //   alert("Geolocation is not supported by this browser.");
   //}
-  // init(cfg, log);
-  // login(config);
+  
+  //testing that redirect
+  init(cfg, log);
+  login(config);
 }
 // send location
 function sendLocation(position){
