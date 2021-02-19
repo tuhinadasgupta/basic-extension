@@ -10,6 +10,9 @@ function loading(){
   var json3= {name: "Thrift", address: "124 Drive", price: 3, stars: 5, url: ""}
   localStorage.setItem("company3", JSON.stringify(json3));
 
+  //set jwt
+  localStorage.setItem("token", "token_string");
+
   // user location
   // if (navigator.geolocation){
   //   navigator.geolocation.getCurrentPosition(sendLocation);
@@ -95,7 +98,7 @@ function receiveRequest(completeJSON){
 }
 //oauth2 code from: https://github.com/michaeloryl/oauth2-angularjs-chrome-extension-demo/blob/master/app/scripts/background.js
 var cfg = {
-  "implicitGrantUrl": "https://accounts.google.com/o/oauth2/auth",
+  "implicitGrantUrl": "http://127.0.0.1:8000/api/token/",
   "logoutUrl": "https://accounts.google.com/logout",
   "tokenInfoUrl": "https://www.googleapis.com/oauth2/v3/tokeninfo",
   "userInfoUrl": "https://www.googleapis.com/plus/v1/people/me",

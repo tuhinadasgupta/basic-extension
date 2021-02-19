@@ -60,7 +60,7 @@ a {
   cursor: pointer;
   background-color: white;
   color: black;
-  border: 2px solid #e7e7e7;
+  border: 2px solid darkgrey;
   border-radius: 12px;
   width: 125px;
   display: inline-block;
@@ -114,7 +114,7 @@ h4 button span {
   cursor: pointer;
   background-color: white;
   color: black;
-  border: 2px solid #e7e7e7;
+  border: 2px solid darkgrey;
   border-radius: 12px;
   width: 100%;
   outline-color: white;
@@ -135,7 +135,6 @@ h4 button span {
   border: none;
   line-height: 14px;
   border-radius: 4px;
-  margin: 5px 0;
   opacity: 0.85;
   display: inline-block;
   font-size: 14px;
