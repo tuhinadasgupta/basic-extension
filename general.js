@@ -8,9 +8,15 @@ function closeWindow() {
   window.close('','_parent','');
 }
 
-document.getElementById("to-web-app").addEventListener("click", redirectToLogin);
+document.getElementById("to-login").addEventListener("click", redirectToLogin);
 function redirectToLogin() {
-  chrome.tabs.update({url: "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/account/login/"});
+  chrome.tabs.update({url: "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/api/token/"});
+  window.close();
+}
+
+document.getElementById("to-signup").addEventListener("click", redirectToSignUp);
+function redirectToSignUp() {
+  chrome.tabs.update({url: "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/accounts/signup"});
   window.close();
 }
 
@@ -21,12 +27,10 @@ function onWindowLoading(){
   console.log(stored);
   if(stored!=null){
     //user is logged in
-    document.getElementById('second').style.display = 'none';
-    //document.getElementById('first').style.display = 'none';
+    document.getElementById('first').style.display = 'none';
   }
   else{
     //user not logged in 
-    document.getElementById('first').style.display = 'none';
-    //document.getElementById('second').style.display = 'none';
+    document.getElementById('second').style.display = 'none';
   }
 }

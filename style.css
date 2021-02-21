@@ -141,9 +141,9 @@ h4 button span {
   text-decoration: none;
   background-color: rgb(76, 53, 70);
   color: white;
-  width: 120px;
   text-align: center;
-  width: 100%;
+  width: 90%;
+  margin-left: 5px;
 }
 .web-app:hover {
   opacity: 1;
@@ -164,8 +164,9 @@ h4 button span {
 }
 
 .main-content {
-  height: 105px;
+  height: 120px;
   overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .pad-account {
@@ -176,6 +177,7 @@ h4 button span {
   border-radius: 50%;
   height: 75px;
   width: 75px;
+  margin-top: 10px;
 }
 
 #user-name,
@@ -184,7 +186,7 @@ h4 button span {
 }
 
 .error-banner {
-  padding: 4px;
+  padding: 2px;
   border: none;
   line-height: 14px;
   border-radius: 4px;
@@ -192,17 +194,12 @@ h4 button span {
   font-size: 14px;
   background-color: white;
   color:  rgb(253, 128, 128);
-  width: 130px;
-  text-align: center;
+  width: 90%;
+  text-align: left;
   margin-top: 10px;
   margin-bottom: 5px;
-  padding-left: 10px;
   font-weight: 700;
-}
-
-#first {
-  height: 90px;
-  overflow: hidden;
+  margin-left: 5px;
 }
 
 .alt-option {
@@ -229,4 +226,8 @@ h4 button span {
 
 #third{
   display:none;
+}
+
+#to-signup{
+  margin-bottom: 2px;
 }

@@ -6,7 +6,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
-
+<style>
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow:0 0 1px rgba(255, 255, 255, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+</style>
 <body>
   <div class="wrapper">
     <div class="header">
@@ -19,8 +30,10 @@
       </i>Login Required
     </a>
     <br>
-    <button class="web-app" id="to-web-app"><i class="fa fa-external-link pad-account">
-    </i>To Web App</button>
+    <button class="web-app" id="to-signup"><i class="fa fa-external-link pad-account">
+    </i>To Sign Up</button>
+    <button class="web-app" id="to-login"><i class="fa fa-external-link pad-account">
+    </i>To Log In</button>
     </div>
     <div class="main-content" id="second">
       <h2>Calculate Score: </h2>
