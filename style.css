@@ -143,6 +143,7 @@ h4 button span {
   color: white;
   width: 120px;
   text-align: center;
+  width: 100%;
 }
 .web-app:hover {
   opacity: 1;

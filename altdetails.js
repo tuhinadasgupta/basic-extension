@@ -11,7 +11,6 @@ function parsing(){
     }
     else if(companyId.localeCompare("company3")==0){
         data = JSON.parse(localStorage.getItem("company3"));
-        console.log("here3");
     }
     console.log(data);
     document.getElementById("company-name").innerText = data.name;
