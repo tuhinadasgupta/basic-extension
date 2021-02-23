@@ -22,8 +22,29 @@ function loading(){
   //   alert("Geolocation is not supported by this browser.");
   //}
   
-  //testing that redirect
+}
 
+document.getElementById("to-token").addEventListener("click", getToken);
+
+// parsing token
+function getToken(){
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    if (request.action == "getToken") {
+      alert(JSON.stringify(request.source));
+    }
+  });
+  onWindowLoadToken();
+}
+// content script - parsing token
+function onWindowLoadToken() {
+  chrome.tabs.executeScript(null, {
+    file: "getToken.js"
+  }, function() {
+    // if message passing isn't set up, you get a runtime error
+    if (chrome.runtime.lastError) {
+      alert('There was an error injecting script : \n' + chrome.runtime.lastError.message);
+    }
+  });
 }
 // send location
 function sendLocation(position){

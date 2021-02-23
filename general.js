@@ -10,13 +10,13 @@ function closeWindow() {
 
 document.getElementById("to-login").addEventListener("click", redirectToLogin);
 function redirectToLogin() {
-  chrome.tabs.update({url: "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/api/token/"});
+  chrome.tabs.update({url: "http://127.0.0.1:8000/api/token/"});
   window.close();
 }
 
 document.getElementById("to-signup").addEventListener("click", redirectToSignUp);
 function redirectToSignUp() {
-  chrome.tabs.update({url: "http://pachira.eba-zaetptb5.us-east-1.elasticbeanstalk.com/accounts/signup"});
+  chrome.tabs.update({url: "http://127.0.0.1:8000/accounts/signup"});
   window.close();
 }
 
@@ -27,10 +27,12 @@ function onWindowLoading(){
   console.log(stored);
   if(stored!=null){
     //user is logged in
-    document.getElementById('first').style.display = 'none';
+    //document.getElementById('first').style.display = 'none';
+    document.getElementById('second').style.display = 'none';
   }
   else{
     //user not logged in 
-    document.getElementById('second').style.display = 'none';
+    document.getElementById('first').style.display = 'none';
+    //document.getElementById('second').style.display = 'none';
   }
 }
