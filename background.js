@@ -30,7 +30,11 @@ document.getElementById("to-token").addEventListener("click", getToken);
 function getToken(){
   chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.action == "getToken") {
-      alert(JSON.stringify(request.source));
+      var json = request.source;
+      var access_token = btoa(json.access); //encoding
+      var refresh_token = btoa(json.refresh); 
+      localStorage.setItem("access_token", access_token);
+      localStorage.setItem("refresh_token", refresh_token);
     }
   });
   onWindowLoadToken();
@@ -66,7 +70,7 @@ document.getElementById("score-btn").addEventListener("click", replaceFunction);
 function replaceFunction(){
   document.getElementById('second').style.display = 'none';
   document.getElementById('third').style.display = 'block';
-  textFunction();
+  //textFunction();
 }
 
 // parsing shopping cart
@@ -119,4 +123,23 @@ function receiveRequest(completeJSON){
     }
   }
   req.send(JSON.stringify(completeJSON));
+}
+
+//get suggested alternatives
+document.getElementById("alt-btn").addEventListener("click", getAlternatives);
+//gets alternatives
+function getAlternatives(){
+  console.log("Sending request");
+  var req = new XMLHttpRequest();
+  req.open("GET", "http://127.0.0.1:8000/nlp/", true);
+  req.responseType = 'json';
+  req.onreadystatechange = function() {
+    if (req.readyState == 4) {
+      if (req.status == 200) {
+        alert(JSON.stringify(req.response));
+        document.write("OK");
+      }
+    }
+  };
+  req.send();
 }

@@ -29,13 +29,8 @@ function DOMtoString(document_root) {
       var str = document.querySelectorAll("span.str");
       var ref_token = str.item(1).innerText.replace(/['"]+/g, '');
       var acs_token = str.item(3).innerText.replace(/['"]+/g, '');
-      var jsonArr = [];
-      jsonArr.push({
-        refresh: ref_token,
-        access: acs_token
-      });
-      console.log(jsonArr);
-      return jsonArr;
+      var json = {"refresh": ref_token, "access": acs_token};
+      return json;
   }
   
   chrome.runtime.sendMessage({
