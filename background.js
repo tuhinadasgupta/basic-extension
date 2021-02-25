@@ -136,8 +136,20 @@ function getAlternatives(){
   req.onreadystatechange = function() {
     if (req.readyState == 4) {
       if (req.status == 200) {
-        alert(JSON.stringify(req.response));
-        document.write("OK");
+        var jsonStr = JSON.stringify(req.response);
+        var jsonParse = JSON.parse(jsonStr);
+        for(var i=0; i<jsonParse.length; i++){
+          var altCompany = jsonParse[i];
+          if(i==0){
+            localStorage.setItem("company1", JSON.stringify(altCompany));
+          }
+          else if(i==1){
+            localStorage.setItem("company2", JSON.stringify(altCompany));
+          }
+          else if(i==2){
+            localStorage.setItem("company3", JSON.stringify(altCompany));
+          }
+        }        
       }
     }
   };
