@@ -106,6 +106,7 @@ function sendRequest() {
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
   req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
+  req.setRequestHeader("Accept", "application/json");
   req.onreadystatechange = function() {
     if (req.readyState == 4) {
       if (req.status == 200) {
@@ -145,7 +146,7 @@ function getAlternatives(){
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
   req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
-  req.responseType = 'json';
+  req.setRequestHeader("Accept", "application/json");
   req.onreadystatechange = function() {
     if (req.readyState == 4) {
       if (req.status == 200) {
