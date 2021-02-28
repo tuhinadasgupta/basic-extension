@@ -58,6 +58,9 @@ function sendLocation(position){
   var req = new XMLHttpRequest();
   req.open("POST", "http://127.0.0.1:8000/nlp/", true);
   req.setRequestHeader("Content-type", "application/json");
+  var accessjwtoken = localStorage.getItem("access_token");
+  accessjwtoken = atob(accessjwtoken);
+  req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
   req.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         console.log("Got response 200!");
@@ -100,6 +103,9 @@ function sendRequest() {
   var req = new XMLHttpRequest();
   req.open("GET", "http://127.0.0.1:8000/catalog/login/", true);
   req.responseType = 'json';
+  var accessjwtoken = localStorage.getItem("access_token");
+  accessjwtoken = atob(accessjwtoken);
+  req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
   req.onreadystatechange = function() {
     if (req.readyState == 4) {
       if (req.status == 200) {
@@ -117,6 +123,10 @@ function receiveRequest(completeJSON){
 
   req.open("POST", "http://127.0.0.1:8000/snippets/", true);
   req.setRequestHeader("Content-type", "application/json");
+  var accessjwtoken = localStorage.getItem("access_token");
+  accessjwtoken = atob(accessjwtoken);
+  req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
+
   req.onreadystatechange = function() { // Call a function when the state changes
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         console.log("Got response 200!");
@@ -132,6 +142,9 @@ function getAlternatives(){
   console.log("Sending request");
   var req = new XMLHttpRequest();
   req.open("GET", "http://127.0.0.1:8000/nlp/", true);
+  var accessjwtoken = localStorage.getItem("access_token");
+  accessjwtoken = atob(accessjwtoken);
+  req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
   req.responseType = 'json';
   req.onreadystatechange = function() {
     if (req.readyState == 4) {
