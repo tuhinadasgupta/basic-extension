@@ -1,58 +1,96 @@
-window.addEventListener('load', loading);
-function loading(){
+var interval;
+window.addEventListener("load", loading);
+function loading() {
   chrome.storage.sync.clear();
-  chrome.storage.sync.set({'login' : 'true'}, function(){});
+  chrome.storage.sync.set({ login: "true" }, function () {});
   //set alternatives data (hardcoded)
-  var json1= {name: "Target", address: "12 Drive", price: 2, stars: 3, url: ""}
+  var json1 = {
+    name: "Target",
+    address: "12 Drive",
+    price: 2,
+    stars: 3,
+    url: "",
+  };
   localStorage.setItem("company1", JSON.stringify(json1));
-  var json2= {name: "Walmart", address: "123 Drive", price: 1, stars: 4, url: ""}
-  localStorage.setItem("company2", JSON.stringify(json2));  
-  var json3= {name: "Thrift", address: "124 Drive", price: 3, stars: 5, url: ""}
+  var json2 = {
+    name: "Walmart",
+    address: "123 Drive",
+    price: 1,
+    stars: 4,
+    url: "",
+  };
+  localStorage.setItem("company2", JSON.stringify(json2));
+  var json3 = {
+    name: "Thrift",
+    address: "124 Drive",
+    price: 3,
+    stars: 5,
+    url: "",
+  };
   localStorage.setItem("company3", JSON.stringify(json3));
 
   //set jwt w/base64 encoding
   var token_plaintext = "token_string";
   var token_encoded = btoa(token_plaintext); //to decode atob()
   localStorage.setItem("token", token_encoded);
+}
 
+document.addEventListener("DOMContentLoaded", afterLoad);
+
+function afterLoad() {
   // user location
   // if (navigator.geolocation){
   //   navigator.geolocation.getCurrentPosition(sendLocation);
   // } else {
   //   alert("Geolocation is not supported by this browser.");
   //}
-  
+
+  interval = setInterval(determineIfParse, 5000);
 }
 
-document.getElementById("to-token").addEventListener("click", getToken);
+function stopFunc() {
+  clearInterval(interval);
+}
 
-// parsing token
-function getToken(){
-  chrome.runtime.onMessage.addListener(function(request, sender) {
-    if (request.action == "getToken") {
+function determineIfParse() {
+  chrome.runtime.onMessage.addListener(function (request, sender) {
+    if (request.action == "getCheck") {
+      console.log(request.source);
       var json = request.source;
       var access_token = btoa(json.access); //encoding
-      var refresh_token = btoa(json.refresh); 
+      var refresh_token = btoa(json.refresh);
       localStorage.setItem("access_token", access_token);
       localStorage.setItem("refresh_token", refresh_token);
+      stopFunc();
     }
   });
-  onWindowLoadToken();
+  onWindowLoadCheck();
 }
-// content script - parsing token
-function onWindowLoadToken() {
-  chrome.tabs.executeScript(null, {
-    file: "getToken.js"
-  }, function() {
-    // if message passing isn't set up, you get a runtime error
-    if (chrome.runtime.lastError) {
-      alert('There was an error injecting script : \n' + chrome.runtime.lastError.message);
+
+function onWindowLoadCheck() {
+  chrome.tabs.executeScript(
+    null,
+    {
+      file: "getCheck.js",
+    },
+    function () {
+      // if message passing isn't set up, you get a runtime error
+      if (chrome.runtime.lastError) {
+        alert(
+          "There was an error injecting script : \n" +
+            chrome.runtime.lastError.message
+        );
+      }
     }
-  });
+  );
 }
+
 // send location
-function sendLocation(position){
-  var coords = {"lat": position.coords.latitude, "lon": position.coords.longitude};
+function sendLocation(position) {
+  var coords = {
+    lat: position.coords.latitude,
+    lon: position.coords.longitude,
+  };
   console.log(coords);
   console.log(JSON.stringify(coords));
   var req = new XMLHttpRequest();
@@ -60,25 +98,26 @@ function sendLocation(position){
   req.setRequestHeader("Content-type", "application/json");
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
-  req.onreadystatechange = function() { // Call a function when the state changes.
+  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
+  req.onreadystatechange = function () {
+    // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        console.log("Got response 200!");
+      console.log("Got response 200!");
     }
-  }
+  };
   req.send(JSON.stringify(coords));
 }
 // html pg display
 document.getElementById("score-btn").addEventListener("click", replaceFunction);
-function replaceFunction(){
-  document.getElementById('second').style.display = 'none';
-  document.getElementById('third').style.display = 'block';
+function replaceFunction() {
+  document.getElementById("second").style.display = "none";
+  document.getElementById("third").style.display = "block";
   //textFunction();
 }
 
 // parsing shopping cart
-function textFunction(){
-  chrome.runtime.onMessage.addListener(function(request, sender) {
+function textFunction() {
+  chrome.runtime.onMessage.addListener(function (request, sender) {
     if (request.action == "getSource") {
       receiveRequest(request.source); // send to aws eb
     }
@@ -87,14 +126,21 @@ function textFunction(){
 }
 // content script - parsing shopping cart
 function onWindowLoad() {
-  chrome.tabs.executeScript(null, {
-    file: "getPagesSource.js"
-  }, function() {
-    // if message passing isn't set up, you get a runtime error
-    if (chrome.runtime.lastError) {
-      alert('There was an error injecting script : \n' + chrome.runtime.lastError.message);
+  chrome.tabs.executeScript(
+    null,
+    {
+      file: "getPagesSource.js",
+    },
+    function () {
+      // if message passing isn't set up, you get a runtime error
+      if (chrome.runtime.lastError) {
+        alert(
+          "There was an error injecting script : \n" +
+            chrome.runtime.lastError.message
+        );
+      }
     }
-  });
+  );
 }
 
 // django server communication
@@ -102,12 +148,12 @@ function sendRequest() {
   console.log("Sending request");
   var req = new XMLHttpRequest();
   req.open("GET", "http://127.0.0.1:8000/catalog/login/", true);
-  req.responseType = 'json';
+  req.responseType = "json";
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
+  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
   req.setRequestHeader("Accept", "application/json");
-  req.onreadystatechange = function() {
+  req.onreadystatechange = function () {
     if (req.readyState == 4) {
       if (req.status == 200) {
         alert(JSON.stringify(req.response));
@@ -116,9 +162,9 @@ function sendRequest() {
     }
   };
   req.send();
-} 
+}
 // send cart contents
-function receiveRequest(completeJSON){
+function receiveRequest(completeJSON) {
   console.log("Posting request");
   var req = new XMLHttpRequest();
 
@@ -126,44 +172,43 @@ function receiveRequest(completeJSON){
   req.setRequestHeader("Content-type", "application/json");
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
+  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
 
-  req.onreadystatechange = function() { // Call a function when the state changes
+  req.onreadystatechange = function () {
+    // Call a function when the state changes
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        console.log("Got response 200!");
+      console.log("Got response 200!");
     }
-  }
+  };
   req.send(JSON.stringify(completeJSON));
 }
 
 //get suggested alternatives
 document.getElementById("alt-btn").addEventListener("click", getAlternatives);
 //gets alternatives
-function getAlternatives(){
+function getAlternatives() {
   console.log("Sending request");
   var req = new XMLHttpRequest();
   req.open("GET", "http://127.0.0.1:8000/nlp/", true);
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization","Bearer " + accessjwtoken);
+  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
   req.setRequestHeader("Accept", "application/json");
-  req.onreadystatechange = function() {
+  req.onreadystatechange = function () {
     if (req.readyState == 4) {
       if (req.status == 200) {
         var jsonStr = JSON.stringify(req.response);
         var jsonParse = JSON.parse(jsonStr);
-        for(var i=0; i<jsonParse.length; i++){
+        for (var i = 0; i < jsonParse.length; i++) {
           var altCompany = jsonParse[i];
-          if(i==0){
+          if (i == 0) {
             localStorage.setItem("company1", JSON.stringify(altCompany));
-          }
-          else if(i==1){
+          } else if (i == 1) {
             localStorage.setItem("company2", JSON.stringify(altCompany));
-          }
-          else if(i==2){
+          } else if (i == 2) {
             localStorage.setItem("company3", JSON.stringify(altCompany));
           }
-        }        
+        }
       }
     }
   };
