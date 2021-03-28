@@ -46,6 +46,32 @@ function afterLoad() {
   //}
 
   interval = setInterval(determineIfParse, 5000);
+
+  //get username, sust tier
+  getAccInfo();
+}
+
+function getAccInfo() {
+  console.log("Sending request");
+  var req = new XMLHttpRequest();
+  req.open("GET", "http://127.0.0.1:8000/", true);
+  var accessjwtoken = localStorage.getItem("access_token");
+  accessjwtoken = atob(accessjwtoken);
+  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
+  req.setRequestHeader("Accept", "application/json");
+  req.onreadystatechange = function () {
+    if (req.readyState == 4) {
+      if (req.status == 200) {
+        var jsonStr = JSON.stringify(req.response);
+        var jsonParse = JSON.parse(jsonStr);
+        var username = jsonParse.username;
+        var sust_tier = jsonParse.susttier; 
+        localStorage.setItem("username", username);
+        localStorage.setItem("susttier", sust_tier);
+      }
+    }
+  };
+  req.send();
 }
 
 function stopFunc() {
