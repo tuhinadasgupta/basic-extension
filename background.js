@@ -65,7 +65,7 @@ function getAccInfo() {
         var jsonStr = JSON.stringify(req.response);
         var jsonParse = JSON.parse(jsonStr);
         var username = jsonParse.username;
-        var sust_tier = jsonParse.susttier; 
+        var sust_tier = jsonParse.susttier;
         localStorage.setItem("username", username);
         localStorage.setItem("susttier", sust_tier);
       }
@@ -169,26 +169,6 @@ function onWindowLoad() {
   );
 }
 
-// django server communication
-function sendRequest() {
-  console.log("Sending request");
-  var req = new XMLHttpRequest();
-  req.open("GET", "http://127.0.0.1:8000/catalog/login/", true);
-  req.responseType = "json";
-  var accessjwtoken = localStorage.getItem("access_token");
-  accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
-  req.setRequestHeader("Accept", "application/json");
-  req.onreadystatechange = function () {
-    if (req.readyState == 4) {
-      if (req.status == 200) {
-        alert(JSON.stringify(req.response));
-        document.write("OK");
-      }
-    }
-  };
-  req.send();
-}
 // send cart contents
 function receiveRequest(completeJSON) {
   console.log("Posting request");
@@ -210,7 +190,14 @@ function receiveRequest(completeJSON) {
 }
 
 //get suggested alternatives
-document.getElementById("alt-btn").addEventListener("click", getAlternatives);
+document
+  .getElementById("alt-btn")
+  .addEventListener("click", alternativesFunctions);
+function alternativesFunctions() {
+  getAlternatives();
+  getCompanySustScores();
+}
+
 //gets alternatives
 function getAlternatives() {
   console.log("Sending request");
@@ -233,6 +220,38 @@ function getAlternatives() {
             localStorage.setItem("company2", JSON.stringify(altCompany));
           } else if (i == 2) {
             localStorage.setItem("company3", JSON.stringify(altCompany));
+          }
+        }
+      }
+    }
+  };
+  req.send();
+}
+
+// django server communication
+function getCompanySustScores() {
+  console.log("Sending request");
+  var req = new XMLHttpRequest();
+  req.open("GET", "http://127.0.0.1:8000/sust/company/", true);
+  req.responseType = "json";
+  var accessjwtoken = localStorage.getItem("access_token");
+  accessjwtoken = atob(accessjwtoken);
+  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
+  req.setRequestHeader("Accept", "application/json");
+  req.onreadystatechange = function () {
+    if (req.readyState == 4) {
+      if (req.status == 200) {
+        alert(JSON.stringify(req.response));
+        var jsonStr = JSON.stringify(req.response);
+        var jsonParse = JSON.parse(jsonStr); //format [{sust_score: 12, sust_score: 13, sust_score: 14}]
+        for (var i = 0; i < jsonParse.length; i++) {
+          var score = jsonParse[i];
+          if (i == 0) {
+            localStorage.setItem("sustscore1", JSON.stringify(score));
+          } else if (i == 1) {
+            localStorage.setItem("sustscore2", JSON.stringify(score));
+          } else if (i == 2) {
+            localStorage.setItem("sustscore3", JSON.stringify(score));
           }
         }
       }
