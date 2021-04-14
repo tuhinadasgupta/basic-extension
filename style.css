@@ -232,3 +232,8 @@ h4 button span {
 #to-signup{
   margin-bottom: 2px;
 }
+
+#close-btn, #back-btn{
+  width: 20px;
+  height: 20px;
+}

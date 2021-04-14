@@ -5,12 +5,14 @@ function goBack() {
 
 document.getElementById("close-btn").addEventListener("click", closeWindow);
 function closeWindow() {
-  window.close('','_parent','');
+  // window.close('','_parent','');
+  window.open(location, '_self').close();   
+  //open(location, '_self').close();
 }
 
 document.getElementById("to-login").addEventListener("click", redirectToLogin);
 function redirectToLogin() {
-  chrome.tabs.update({url: "http://127.0.0.1:8000/api/token/"});
+  chrome.tabs.update({url: "http://127.0.0.1:8000/accounts/login"});
   window.close();
 }
 
@@ -23,14 +25,16 @@ function redirectToSignUp() {
 window.addEventListener('load', onWindowLoading);
 function onWindowLoading(){
   var stored = "";
-  stored = localStorage.getItem("token");
-  console.log(stored);
+  stored = localStorage.getItem("access_token");
+  console.log(atob(stored));
   if(stored!=null){
     //user is logged in
-    document.getElementById('first').style.display = 'none';
+    //document.getElementById('first').style.display = 'none';
+    document.getElementById('second').style.display = 'none';
   }
   else{
     //user not logged in 
-    document.getElementById('second').style.display = 'none';
+    document.getElementById('first').style.display = 'none';
+    //document.getElementById('second').style.display = 'none';
   }
 }

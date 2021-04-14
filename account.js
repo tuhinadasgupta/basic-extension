@@ -1,7 +1,11 @@
 window.addEventListener('load', parsing);
 function parsing(){
     var username = localStorage.getItem("username");
-    var sust_tier = localStorage.getItem("susttier");
+    var sust = localStorage.getItem("susttier");
+    var sust_tier;
+    if(sust != null){
+        sust_tier = "seedling";
+    }
     var path="";
     if(sust_tier.localeCompare("blossom")==0){
         path = "avatars/blossom.png"
@@ -20,6 +24,9 @@ function parsing(){
     }
     else if(sust_tier.localeCompare("sprout")==0){
         path = "avatars/sprout.png"
+    }
+    else{
+        path = "generic-user.png"
     }
     console.log(path);
     document.getElementById("user-name").innerText = username;

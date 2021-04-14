@@ -30,8 +30,9 @@ function parseHTML(html) {
     var arrItems = Array.prototype.slice.apply(items);
     var jsonArr = [];
     for (var i = 0; i < arrItems.length; i++) {
-        var textName = arrItems[i].getElementsByClassName("a-size-medium sc-product-title a-text-bold")[0].innerText;
+        var textName = arrItems[i].getElementsByClassName("a-size-medium a-color-base sc-product-title")[0].innerText;
         jsonArr.push({
+            username: localStorage.getItem("username"),
             name: textName,
             price: arrItems[i].dataset.price
         });

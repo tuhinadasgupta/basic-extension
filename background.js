@@ -1,8 +1,6 @@
 var interval;
 window.addEventListener("load", loading);
 function loading() {
-  chrome.storage.sync.clear();
-  chrome.storage.sync.set({ login: "true" }, function () {});
   //set alternatives data (hardcoded)
   var json1 = {
     name: "Target",
@@ -28,33 +26,34 @@ function loading() {
     url: "",
   };
   localStorage.setItem("company3", JSON.stringify(json3));
-
-  //set jwt w/base64 encoding
-  var token_plaintext = "token_string";
-  var token_encoded = btoa(token_plaintext); //to decode atob()
-  localStorage.setItem("token", token_encoded);
 }
 
 document.addEventListener("DOMContentLoaded", afterLoad);
 
 function afterLoad() {
-  // user location
-  // if (navigator.geolocation){
-  //   navigator.geolocation.getCurrentPosition(sendLocation);
-  // } else {
-  //   alert("Geolocation is not supported by this browser.");
-  //}
-
+  // get user token
   interval = setInterval(determineIfParse, 5000);
 
   //get username, sust tier
   getAccInfo();
+
+  //user location
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(sendLocation, null, {
+      timeout: 20000,
+      enableHighAccuracy: true,
+      maximumAge: Infinity,
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+
 }
 
 function getAccInfo() {
   console.log("Sending request");
   var req = new XMLHttpRequest();
-  req.open("GET", "http://127.0.0.1:8000/", true);
+  req.open("GET", "http://127.0.0.1:8000/accounts/username/", true);
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
   req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
@@ -62,12 +61,14 @@ function getAccInfo() {
   req.onreadystatechange = function () {
     if (req.readyState == 4) {
       if (req.status == 200) {
-        var jsonStr = JSON.stringify(req.response);
-        var jsonParse = JSON.parse(jsonStr);
-        var username = jsonParse.username;
-        var sust_tier = jsonParse.susttier;
+        console.log(req.response);
+        // var jsonStr = JSON.stringify(req.response);
+        // var jsonParse = JSON.parse(jsonStr);
+        var username = req.response.toString();
+        console.log(username);
+        //var sust_tier = jsonParse.susttier;
         localStorage.setItem("username", username);
-        localStorage.setItem("susttier", sust_tier);
+        // localStorage.setItem("susttier", sust_tier);
       }
     }
   };
@@ -81,7 +82,7 @@ function stopFunc() {
 function determineIfParse() {
   chrome.runtime.onMessage.addListener(function (request, sender) {
     if (request.action == "getCheck") {
-      console.log(request.source);
+      console.log("Token: ", request.source);
       var json = request.source;
       var access_token = btoa(json.access); //encoding
       var refresh_token = btoa(json.refresh);
@@ -114,6 +115,7 @@ function onWindowLoadCheck() {
 // send location
 function sendLocation(position) {
   var coords = {
+    username: localStorage.getItem("username"),
     lat: position.coords.latitude,
     lon: position.coords.longitude,
   };
@@ -125,6 +127,7 @@ function sendLocation(position) {
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
   req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
+  console.log(req.toString());
   req.onreadystatechange = function () {
     // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -138,13 +141,14 @@ document.getElementById("score-btn").addEventListener("click", replaceFunction);
 function replaceFunction() {
   document.getElementById("second").style.display = "none";
   document.getElementById("third").style.display = "block";
-  //textFunction();
+  textFunction();
 }
 
 // parsing shopping cart
 function textFunction() {
   chrome.runtime.onMessage.addListener(function (request, sender) {
     if (request.action == "getSource") {
+      console.log(request.source);
       receiveRequest(request.source); // send to aws eb
     }
   });
@@ -173,7 +177,7 @@ function onWindowLoad() {
 function receiveRequest(completeJSON) {
   console.log("Posting request");
   var req = new XMLHttpRequest();
-
+  console.log(completeJSON);
   req.open("POST", "http://127.0.0.1:8000/snippets/", true);
   req.setRequestHeader("Content-type", "application/json");
   var accessjwtoken = localStorage.getItem("access_token");
@@ -196,8 +200,12 @@ document
 function alternativesFunctions() {
   getAlternatives();
   getCompanySustScores();
+  changeWindow();
 }
 
+function changeWindow(){
+  window.location.href = "alt.html";
+}
 //gets alternatives
 function getAlternatives() {
   console.log("Sending request");
