@@ -56,7 +56,7 @@ function getAccInfo() {
   req.open("GET", "http://127.0.0.1:8000/accounts/username/", true);
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
+  req.setRequestHeader("Authorization", "JWT " + accessjwtoken);
   req.setRequestHeader("Accept", "application/json");
   req.onreadystatechange = function () {
     if (req.readyState == 4) {
@@ -126,7 +126,7 @@ function sendLocation(position) {
   req.setRequestHeader("Content-type", "application/json");
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
+  req.setRequestHeader("Authorization", "JWT " + accessjwtoken);
   console.log(req.toString());
   req.onreadystatechange = function () {
     // Call a function when the state changes.
@@ -146,6 +146,7 @@ function replaceFunction() {
 
 // parsing shopping cart
 function textFunction() {
+  console.log("here");
   chrome.runtime.onMessage.addListener(function (request, sender) {
     if (request.action == "getSource") {
       console.log(request.source);
@@ -182,8 +183,8 @@ function receiveRequest(completeJSON) {
   req.setRequestHeader("Content-type", "application/json");
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
-
+  req.setRequestHeader("Authorization", "JWT " + accessjwtoken);
+  console.log(req);
   req.onreadystatechange = function () {
     // Call a function when the state changes
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -193,34 +194,43 @@ function receiveRequest(completeJSON) {
   req.send(JSON.stringify(completeJSON));
 }
 
+function donothing() {
+  //
+}
+
 //get suggested alternatives
 document
   .getElementById("alt-btn")
   .addEventListener("click", alternativesFunctions);
 function alternativesFunctions() {
+  console.log('before');
+  setTimeout(donothing, 7000); // run donothing after 7 seconds
+  console.log('after'); 
   getAlternatives();
-  getCompanySustScores();
-  changeWindow();
+ // getCompanySustScores();
+  //changeWindow();
 }
 
 function changeWindow(){
   window.location.href = "alt.html";
+  console.log("in change window");
 }
 //gets alternatives
 function getAlternatives() {
+  console.log("in getAlternatives");
   console.log("Sending request");
   var req = new XMLHttpRequest();
   req.open("GET", "http://127.0.0.1:8000/nlp/", true);
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
+  req.setRequestHeader("Authorization", "JWT " + accessjwtoken);
   req.setRequestHeader("Accept", "application/json");
   req.onreadystatechange = function () {
     if (req.readyState == 4) {
       if (req.status == 200) {
-        var jsonStr = JSON.stringify(req.response);
-        var jsonParse = JSON.parse(jsonStr);
-        for (var i = 0; i < jsonParse.length; i++) {
+        console.log(req.response);
+        var jsonParse = JSON.parse(req.response);
+        for (var i=0; i<jsonParse.length; i++) {
           var altCompany = jsonParse[i];
           if (i == 0) {
             localStorage.setItem("company1", JSON.stringify(altCompany));
@@ -244,7 +254,7 @@ function getCompanySustScores() {
   req.responseType = "json";
   var accessjwtoken = localStorage.getItem("access_token");
   accessjwtoken = atob(accessjwtoken);
-  req.setRequestHeader("Authorization", "Bearer " + accessjwtoken);
+  req.setRequestHeader("Authorization", "JWT " + accessjwtoken);
   req.setRequestHeader("Accept", "application/json");
   req.onreadystatechange = function () {
     if (req.readyState == 4) {

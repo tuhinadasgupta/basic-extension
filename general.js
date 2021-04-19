@@ -29,12 +29,10 @@ function onWindowLoading(){
   console.log(atob(stored));
   if(stored!=null){
     //user is logged in
-    //document.getElementById('first').style.display = 'none';
-    document.getElementById('second').style.display = 'none';
+    document.getElementById('first').style.display = 'none';
   }
   else{
     //user not logged in 
-    document.getElementById('first').style.display = 'none';
-    //document.getElementById('second').style.display = 'none';
+    document.getElementById('second').style.display = 'none';
   }
 }

@@ -3,7 +3,7 @@ function parsing(){
     var username = localStorage.getItem("username");
     var sust = localStorage.getItem("susttier");
     var sust_tier;
-    if(sust != null){
+    if(sust == null){
         sust_tier = "seedling";
     }
     var path="";
